@@ -1,6 +1,6 @@
-# vue-webqr
+# nlu-news-web
 
-> vue-webqr
+> nlu-news-web
 
 ## Build Setup
 
