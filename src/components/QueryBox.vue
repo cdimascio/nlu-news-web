@@ -1,10 +1,12 @@
 <template>
+<div>
 <form novalidate @submit.stop.prevent="submit">
   <md-input-container>
     <label>Enter a Url</label>
     <md-input v-model="url"></md-input>
   </md-input-container>
-</form>  
+</form>
+</div>  
 </template>
 
 <script>

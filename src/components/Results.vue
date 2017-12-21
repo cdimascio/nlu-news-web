@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="demo">
     <h1>hi</h1>
 <!-- <md-card>
       <md-card-header>
@@ -15,10 +15,7 @@
 </md-card> -->
   <query-box v-model="url" v-on:input="updateUrl"></query-box>
 
-    <google-map
-  name="example"
-  v-bind:entities="items"
-></google-map>
+  <google-map name="example" :entities="markers"></google-map>
     <!-- <md-card>
       <md-card-header>
         <div class="md-title">
@@ -67,7 +64,7 @@ export default {
   data: function() {
     return {
       contacts: [],
-      items: [],
+      entities: [],
       url: '',
     };
   },
@@ -75,6 +72,11 @@ export default {
     // ...mapState({
     //   user: state => state.login.user,
     // })
+    markers() {
+      console.log(this.entities)
+      return this.entities
+        .filter(e => e.db_pedia.lat && e.db_pedia.long)
+    }
   },
   methods: {
     ...mapActions(['analyze', 'analyzeAndLookup']),
@@ -83,7 +85,7 @@ export default {
       this.analyzeAndLookup(
         this.url, //'http://www.cnn.com/2017/12/20/us/mckayla-maroney-lawsuit/index.html'
       ).then(r => {
-        this.items = r;
+        this.entities = r;
         console.log('mount table', JSON.stringify(r.results.bindings, null, ' '));
       });
     },
@@ -94,7 +96,11 @@ export default {
 };
 </script>
 
-<style>
-
+<style scoped>
+.demo {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
 </style>
 
