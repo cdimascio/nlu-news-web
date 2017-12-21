@@ -5,8 +5,7 @@ const state = {
   analysis: null,
 }
 
-const getters = {
-}
+const getters = {}
 
 const actions = {
   analyze({ commit, state }, url) {
@@ -33,19 +32,29 @@ const actions = {
       console.log('analyze complete, lookup all start', r.entities)
       const entities = r.entities || []
       const set = new Set()
-      const ps = entities.filter(e => {
-        const name = (e.disambiguation && e.disambiguation.name) || e.text
-        console.log('---', name)
-        const visited = set.has(name)
-        set.add(name)
-        return !visited
-      }).map(e => {
-        const name = (e.disambiguation && e.disambiguation.name) || e.text
-        return dispatch('lookup', name)
-      })
+      const ps = entities
+        .filter(e => {
+          const name = (e.disambiguation && e.disambiguation.name) || e.text
+          console.log('---', name)
+          const visited = set.has(name)
+          set.add(name)
+          return !visited
+        })
+        .map(e => {
+          const reshape = o => 
+            Object.keys(o).reduce((r, k) => ({
+              ...r,
+              [k === 's' ? 'uri' : k]: o[k].value,
+            }), {})
+          const name = (e.disambiguation && e.disambiguation.name) || e.text
+          return dispatch('lookup', name).then(r => ({
+            db_pedia: reshape(r.results.bindings[0]),
+            entity: e,
+          }))
+        })
 
       return Promise.all(ps).then(r => {
-        const all = r.reduce((a, b) => a.concat(b.results.bindings), [])
+        const all = r.reduce((a, b) => a.concat(b), []) // a.concat(b.results.bindings), [])
         commit(types.ANALYZE_AND_LOOKUP_SUCCESS, all)
         console.log('lookup all done', all)
         return all

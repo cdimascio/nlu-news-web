@@ -6,8 +6,6 @@
 </template>
 
 <script>
-// Google Maps API Key
-// AIzaSyA1ML3-uU97_aFE30ZowATAsNS5uJ9bK58
 export default {
   name: 'google-map',
   props: ['name', 'entities'],

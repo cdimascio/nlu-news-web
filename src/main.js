@@ -6,16 +6,13 @@ import VueQriously from 'vue-qriously'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.css'
 import App from './App'
-import Table from './components/Table'
 import router from './router'
 import store from './store'
-
 
 Vue.use(Vuex)
 Vue.use(VueMaterial)
 Vue.use(VueQriously)
 
-// Vue.use(VueMaterial.default)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
