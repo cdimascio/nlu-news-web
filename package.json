@@ -19,7 +19,7 @@
     "dbpedia-sparql-client": "^0.9.6",
     "vue": "^2.5.2",
     "vue-googlemaps": "0.0.6",
-    "vue-material": "^0.8.1",
+    "vue-3ial": "^0.8.1",
     "vue-qriously": "^1.1.1",
     "vue-router": "^3.0.1",
     "vuelidate": "^0.6.1",
