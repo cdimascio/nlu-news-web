@@ -14,8 +14,7 @@ export default {
     }
   },
   mounted: function () {
-    
-};
+}
 </script>
 
 <style scoped>

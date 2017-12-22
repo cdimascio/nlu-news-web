@@ -22,7 +22,9 @@ export default {
   },
   methods: {
     submit(event) {
-      this.$emit('input', event.target.value)
+      console.log(this.url, event.target)
+      console.log('EMIT', event.target.value)
+      this.$emit('input', this.url)
     }
   }
 }

@@ -1,6 +1,5 @@
 <template>
   <div class="demo">
-    <h1>hi</h1>
 <!-- <md-card>
       <md-card-header>
         <div class="md-title">
@@ -58,30 +57,25 @@ import { mapState, mapActions } from 'vuex';
 import GoogleMap from './Map';
 import QueryBox from './QueryBox';
 
-console.log('google-map', GoogleMap);
+// console.log('google-map', GoogleMap);
 export default {
   name: 'Results',
   data: function() {
     return {
-      contacts: [],
       entities: [],
       url: '',
     };
   },
   computed: {
-    // ...mapState({
-    //   user: state => state.login.user,
-    // })
     markers() {
-      console.log(this.entities)
       return this.entities
         .filter(e => e.db_pedia.lat && e.db_pedia.long)
     }
   },
   methods: {
-    ...mapActions(['analyze', 'analyzeAndLookup']),
+    ...mapActions(['analyzeAndLookup']),
     updateUrl() {
-      console.log('update url')
+      console.log('update url', this.url)
       this.analyzeAndLookup(
         this.url, //'http://www.cnn.com/2017/12/20/us/mckayla-maroney-lawsuit/index.html'
       ).then(r => {
@@ -91,8 +85,6 @@ export default {
     },
   },
   components: { GoogleMap, QueryBox },
-  mounted: function() {
-  },
 };
 </script>
 

@@ -41,11 +41,14 @@ const actions = {
           return !visited
         })
         .map(e => {
-          const reshape = o => 
-            Object.keys(o).reduce((r, k) => ({
-              ...r,
-              [k === 's' ? 'uri' : k]: o[k].value,
-            }), {})
+          const reshape = o => {
+            if (!o) return {}
+            return Object.keys(o).reduce((r, k) => {
+              const key = k === 's' ? 'uri' : k
+              const value = /(lat|long)/.test(k) ? Number.parseFloat(o[k].value) : o[k].value
+              return { ...r, [key]: value }
+            }, {})
+          }
           const name = (e.disambiguation && e.disambiguation.name) || e.text
           return dispatch('lookup', name).then(r => ({
             db_pedia: reshape(r.results.bindings[0]),

@@ -1,9 +1,9 @@
 <template>
 	<div class="demo">
-  <!-- <div class="google-map" :id="mapName"></div> -->
+  <div class="google-map" :id="mapId"></div>
   <div>{{ markers }}</div>
 
-
+<!-- 
   <gmap-map
     ref="map"
     class="map"
@@ -18,7 +18,7 @@
       :draggable="true"
       @click="center=m.position"
     ></gmap-marker>
-  </gmap-map>
+  </gmap-map> -->
 
 <!-- 
   <googlemaps-map
@@ -50,72 +50,83 @@
 export default {
   name: 'google-map',
   props: {
+    mapId: {
+      default: 'map-view',
+    },
     entities: {
       default: []
     }
   },
+	data() {
+		return {
+      map: null,
+      allMarkers: [],
+			center: {
+				lat: 48.853,
+				lng: 2.298,
+			},
+			zoom: 5,
+    };
+  },
   watch: {
-    markers(value) {
-      console.log('changed markers')
+    markers(values) {
+      this.clearMarkers()
+      this.addMarkersForEntities(values)
       this.fitToBounds()
     }
   },
   computed: {
     markers() {
-      // console.log('computing markers')
-      let m = []
-      if (this.entities.length === 0) {
-      m = [{
-        entity: {
-          text: 'Paris'
-        },
-        db_pedia: {
-          uri: 'http://hi',
-          lat: 48.8735,
-          long: 2.2951
-        }
-      }]
-      } else {
-        m = this.entities
-      }
-      return m.map(e => ({
-        position: {
-          lat: e.db_pedia.lat,
-          lng: e.db_pedia.long,
-        },
-        title: e.entity.text,
-      }))
+      return this.entities
     }
   },
-	data () {
-		return {
-			center: {
-				lat: 48.853,
-				lng: 2.298,
-			},
-			userPosition: null,
-			zoom: 12,
-    };
-  },
   methods: {
+    addMarkersForEntities(entities) {
+      entities.forEach(e => {
+        this.addMarker({
+          position: {
+            lat: e.db_pedia.lat,
+            lng: e.db_pedia.long,
+          },
+          title: e.entity.text
+        })
+      })
+    },
+
+    addMarker({ position, title }) {
+      this.allMarkers.push(
+        new google.maps.Marker({
+          position,
+          title,
+          map: this.map
+        }))
+    },
+
+    clearMarkers() {
+      this.setMapOnAll(null)
+      this.allMarkers = []
+    },
+
+    setMapOnAll(map) {
+      this.allMarkers.forEach(m => m.setMap(map))
+    },
+    
     fitToBounds() {
       if (this.markers.length === 1 ) {
-        const pos = this.markers[0].position;
-        this.center = pos
-        const c = new google.maps.LatLng(pos.lat, pos.lng);
-        this.$refs.map.setCenter(c);
-        return
+        const { lat, long: lng} = this.markers[0].db_pedia;
+        this.center = { lat, lng }
+        this.map.setCenter(new google.maps.LatLng(lat, lng));
       } else if (this.markers.length > 1) {
         const b = new google.maps.LatLngBounds();
         this.markers.forEach(m => {
-          b.extend(new google.maps.LatLng(m.position.lat, m.position.lng))
+          b.extend(new google.maps.LatLng(
+            m.db_pedia.lat, 
+            m.db_pedia.long,
+          ))
         });
 
-        this.$refs.map.fitBounds(b);
-        this.$refs.map.panToBounds(b);
-        console.log(this.$refs.map.getBounds().getCenter())
-      } else {
-          // do nothing?
+        this.map.fitBounds(b);
+        this.map.panToBounds(b);
       }
     },
     onIdle() {
@@ -126,16 +137,14 @@ export default {
     },
   },
   mounted: function () {
-    console.log('mount map')
-  //   console.log('start mountd', this.entities, this.name)
-  //   console.log('---here', window.google)
-  //   console.log(this.mapName)
-  //   const element = document.getElementById(this.mapName)
-  //   const options = {
-  //     zoom: 14,
-  //     center: new google.maps.LatLng(51.501527,-0.1921837)
-  //   }
-  //   const map = new google.maps.Map(element, options);
+    console.log('mount map', this.mapId)
+    const element = document.getElementById(this.mapId)
+    const center = new google.maps.LatLng(this.center.lat, this.center.lng)
+    const options = {
+      center,
+      zoom: this.zoom,
+    } 
+    this.map = new google.maps.Map(element, options);
   },
 }
 </script>
@@ -150,9 +159,6 @@ export default {
 	flex-direction: column;
 }
 .google-map {
-  width: 800px;
-  height: 600px;
-  margin: 0 auto;
-  background: gray;
+  flex: 100% 1 1;
 }
 </style>
