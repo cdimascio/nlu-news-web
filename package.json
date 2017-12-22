@@ -1,8 +1,8 @@
 {
   "name": "qr-web",
   "version": "1.0.0",
-  "description": "Qr web",
-  "author": "Carmine DiMascio <dimascio@us.ibm.com>",
+  "description": "NLU web",
+  "author": "Carmine DiMascio <cdimascio@gmail.com>",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
@@ -19,9 +19,7 @@
     "dbpedia-sparql-client": "^0.9.6",
     "vue": "^2.5.2",
     "vue-material": "^0.8.1",
-    "vue-qriously": "^1.1.1",
     "vue-router": "^3.0.1",
-    "vue2-google-maps": "^0.8.4",
     "vuelidate": "^0.6.1",
     "vuex": "^3.0.1"
   },

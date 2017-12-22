@@ -13,7 +13,10 @@
 
             <md-card-header>
               <div class="md-title">{{entity.entity.text}}</div>
-              <!-- <div class="md-subhead">Subtitle here</div> -->
+              <div class="md-subhead sub-head-wrapper">
+                <div class="left">{{entity.entity.type}}</div>
+                <div class="right">{{topEmotion[entity.entity.text][0].emotion}} ({{topEmotion[entity.entity.text][0].value}})</div>
+              </div>
             </md-card-header>
 
             <md-card-content class="content-container">
@@ -30,19 +33,29 @@
 <script>
 export default {
   name: 'Cards',
-  props: ['entities'],
-  data: function () {
-    return {
-    }
-  },
+  props: [
+    'entities'
+  ],
   computed: {
     cards() {
-      return this.entities.filter(e => e.db_pedia.description)
+      const hasDescription = e => e.db_pedia.description
+      return this.entities.filter(hasDescription)
     },
+    topEmotion() {
+      const byScore = (a, b) => a.value < b.value
+      return this.entities.reduce((o, e) => {
+        const { emotion, text } = e.entity;
+        const a = Object
+          .keys(emotion)
+          .map(k => ({ value: emotion[k], emotion: k }))
+          .sort(byScore)
+        o[text] = a
+        return o
+      }, {})
+    }
   },
   methods: {
     styleImage(i) {
-      console.log('index',i,this.cards, this.cards[i].db_pedia.thumb)
       return {
         height: '300px',
         'background-image': `url(${this.cards[i].db_pedia.thumb})`,
@@ -63,4 +76,8 @@ export default {
   .content-container {
     max-height: 300px;
   }
+  .sub-head-wrapper{position:relative;}
+  .right,.left{width:50%; position:absolute;}
+  .right{right:0; text-align: right;}
+  .left{left:0;}
 </style>

@@ -1,5 +1,1 @@
-export const customProviderApiRoot = 'https://ecl-registration-auth-provider.mybluemix.net/api/v1'
-export const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IakpXVCJ9.eyJpc3MiOiJpYm0ud2F0c29uLmVkdS5hZGFwdGl2ZV9sZWFybmluZyIsInN1YiI6InNlc2FtZV9pYm1fdm9jYWJfdjIiLCJhdWQiOlsiYWRhcHRpdmVfbGVhcm5pbmciXSwic2NvcGUiOltdLCJqdGkiOiI0NTNjNTJjNS1mOWZkLTRhYmItOGM0MS1jMDg3ODJjYzk2ZTAiLCJpYXQiOjE1MTA2Nzc1NDIsImluc3RhbmNlX2lkIjoiNWEwYjFiNGJiYTNmOGIxM2M4ZjIxOWVmIn0.AOH5meFMSc2LuEzESsC4yOn0bSIvE-olQfJWS5MihTw'
-
-
 export const nluNewsApiRoot = ' https://openwhisk.ng.bluemix.net/api/v1/web/dimascio%40us.ibm.com_dev/nlu_news'

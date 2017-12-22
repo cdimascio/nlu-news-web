@@ -1,6 +1,6 @@
 import axios from 'axios'
 import dps from 'dbpedia-sparql-client';
-import { token, customProviderApiRoot, nluNewsApiRoot } from '../config'
+import { nluNewsApiRoot } from '../config'
 
 const extract = _ => _.data
 const newsApi = axios.create({
@@ -29,8 +29,6 @@ export function lookupLocation({ place /* better yet URI? */ }) {
   FILTER ( lang(?comment) = "en")
   }
   `
-  //   a dbo:Place ;
-
   return dps
   .client()
   .query(query)

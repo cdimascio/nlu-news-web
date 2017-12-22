@@ -27,32 +27,22 @@ export default {
     };
   },
   watch: {
-    markers(values, old) {
+    entities(values, old) {
       this.updateMarkers()
-    }
-  },
-  computed: {
-    markers() {
-      return this.entities
     }
   },
   methods: {
     updateMarkers() {
       this.clearMarkers()
-      console.log('markers cleared')
-      this.addMarkersForEntities(this.entities)
-      console.log('markers added')
+      this.addMarkersForEntities()
       this.fitToBounds()
-      console.log('bounds fit')
     },
+
     addMarkersForEntities(entities) {
-      console.log('=-=-=-', entities)
-      entities.forEach(e => {
+      this.entities.forEach(e => {
+        const { lat, long: lng } = e.db_pedia
         this.addMarker({
-          position: {
-            lat: e.db_pedia.lat,
-            lng: e.db_pedia.long,
-          },
+          position: { lat, lng },
           title: e.entity.text
         })
       })
@@ -63,6 +53,10 @@ export default {
         new google.maps.Marker({
           position,
           title,
+          animation: google.maps.Animation.DROP,
+          icon: { 
+            url: `https://chart.googleapis.com/chart?chst=d_bubble_icon_text_small_withshadow&chld=glyphish_map-marker|bb|${title}|FFFFFF|000000`,
+          },
           map: this.map
         }))
     },
@@ -77,23 +71,46 @@ export default {
     },
     
     fitToBounds() {
-      console.log('FIT BOUNDS', this.markers)
-      if (this.markers.length === 1 ) {
-        const { lat, long: lng} = this.markers[0].db_pedia;
-        this.center = { lat, lng }
-        this.map.setCenter(new google.maps.LatLng(lat, lng));
-      } else if (this.markers.length > 1) {
-        const b = new google.maps.LatLngBounds();
-        this.markers.forEach(m => {
-          b.extend(new google.maps.LatLng(
-            m.db_pedia.lat, 
-            m.db_pedia.long,
-          ))
-        });
-
-        this.map.fitBounds(b);
-        this.map.panToBounds(b);
+      const map = this.map
+      const geos = this.entities.map(e => ({
+        lat: e.db_pedia.lat,
+        lng: e.db_pedia.long,
+      }));
+      const centerOnGeos = geos => {
+        if (geos.length === 1) map.setCenter((geos[0]))
+        else if (geos.length > 1) {
+          const bounds = geos.reduce((b, geo) => b.extend(geo), new google.maps.LatLngBounds());
+          map.fitBounds(bounds);
+          map.panToBounds(bounds);
+        }
       }
+      centerOnGeos(geos)
+    },
+
+    createMap(options) {
+      const element = document.getElementById(this.mapId)
+      const map = new google.maps.Map(element, options);
+      const opts = [{
+        stylers: [
+          { hue: '#CD5C5C' },
+          { gamma: 0.5 },
+          { weight: 0.5 }
+        ]
+      },
+      {
+        featureType: 'water',
+        stylers: [
+          { color: '#272b30' }
+        ]
+      }];
+
+      map.mapTypes.set('custom_style', new google.maps.StyledMapType(opts, {
+        name: 'Custom Style'
+      }));
+
+      map.setMapTypeId('custom_style');
+
+      this.map = map
     },
     onIdle() {
       
@@ -103,41 +120,19 @@ export default {
     },
   },
   mounted: function () {
-    console.log('mount map', this.mapId)
-    const element = document.getElementById(this.mapId)
-    const center = new google.maps.LatLng(this.center.lat, this.center.lng)
     const options = {
-      center,
+      center: this.center,
       zoom: this.zoom,
       mapTypeControlOptions: {
-          mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'custom_style']
+        mapTypeIds: [
+          google.maps.MapTypeId.ROADMAP, 
+          'custom_style'
+        ]
       },
     } 
 
-    this.map = new google.maps.Map(element, options);
+    this.createMap(options)
     this.updateMarkers()
-
-    var featureOpts = [{
-        stylers: [
-            { hue: '#CD5C5C' },
-            { gamma: 0.5 },
-            { weight: 0.5 }
-        ]
-    },{
-        featureType: 'water',
-        stylers: [
-            { color: '#272b30' }
-        ]
-    }];
-
-    var styledMapOptions = {
-        name: 'Custom Style'
-    };
-
-    var customMapType = new google.maps.StyledMapType(featureOpts, styledMapOptions);
-
-    this.map.mapTypes.set('custom_style', customMapType);
-    this.map.setMapTypeId('custom_style');
   },
 }
 </script>
