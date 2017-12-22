@@ -1,52 +1,10 @@
 <template>
 	<div class="demo">
   <div class="google-map" :id="mapId"></div>
-  <div>{{ markers }}</div>
-
-<!-- 
-  <gmap-map
-    ref="map"
-    class="map"
-    :center="center"
-    :zoom="7"
-  >
-    <gmap-marker
-      :key="index"
-      v-for="(m, index) in markers"
-      :position="m.position"
-      :clickable="true"
-      :draggable="true"
-      @click="center=m.position"
-    ></gmap-marker>
-  </gmap-map> -->
-
-<!-- 
-  <googlemaps-map
-    ref="map"
-    class="map"
-    :center.sync="center"
-    :zoom.sync="zoom"
-    @idle="onIdle"
-    @click="onMapClick">
-
-  <googlemaps-user-position
-    @update:position="setUserPosition"
-  />
-
-   <googlemaps-marker v-for="marker of markers"
-        :key="marker.db_pedia.uri"
-        title="marker.entity.text"
-        :label="marker.entity.text"
-        :position="{ lat: marker.db_pedia.lat, lng: marker.db_pedia.long }" 
-  /> 
-</googlemaps-map> -->
-
-<!-- <div v-for="marker of markers">{{marker.db_pedia.uri}}</div> -->
   </div>
 </template>
 
 <script>
-// import VueGoogleMaps from 'vue-googlemaps'
 export default {
   name: 'google-map',
   props: {
@@ -69,10 +27,8 @@ export default {
     };
   },
   watch: {
-    markers(values) {
-      this.clearMarkers()
-      this.addMarkersForEntities(values)
-      this.fitToBounds()
+    markers(values, old) {
+      this.updateMarkers()
     }
   },
   computed: {
@@ -81,7 +37,16 @@ export default {
     }
   },
   methods: {
+    updateMarkers() {
+      this.clearMarkers()
+      console.log('markers cleared')
+      this.addMarkersForEntities(this.entities)
+      console.log('markers added')
+      this.fitToBounds()
+      console.log('bounds fit')
+    },
     addMarkersForEntities(entities) {
+      console.log('=-=-=-', entities)
       entities.forEach(e => {
         this.addMarker({
           position: {
@@ -112,6 +77,7 @@ export default {
     },
     
     fitToBounds() {
+      console.log('FIT BOUNDS', this.markers)
       if (this.markers.length === 1 ) {
         const { lat, long: lng} = this.markers[0].db_pedia;
         this.center = { lat, lng }
@@ -143,8 +109,35 @@ export default {
     const options = {
       center,
       zoom: this.zoom,
+      mapTypeControlOptions: {
+          mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'custom_style']
+      },
     } 
+
     this.map = new google.maps.Map(element, options);
+    this.updateMarkers()
+
+    var featureOpts = [{
+        stylers: [
+            { hue: '#CD5C5C' },
+            { gamma: 0.5 },
+            { weight: 0.5 }
+        ]
+    },{
+        featureType: 'water',
+        stylers: [
+            { color: '#272b30' }
+        ]
+    }];
+
+    var styledMapOptions = {
+        name: 'Custom Style'
+    };
+
+    var customMapType = new google.maps.StyledMapType(featureOpts, styledMapOptions);
+
+    this.map.mapTypes.set('custom_style', customMapType);
+    this.map.setMapTypeId('custom_style');
   },
 }
 </script>
