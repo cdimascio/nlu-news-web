@@ -5,7 +5,9 @@ const state = {
   analysis: null,
 }
 
-const getters = {}
+const getters = {
+  analysis: state => state.analysis,
+}
 
 const actions = {
   analyze({ commit, state }, url) {
