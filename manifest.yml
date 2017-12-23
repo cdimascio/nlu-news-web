@@ -1,0 +1,7 @@
+---
+applications:
+- buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
+  host: nlu-web
+  name: nlu-web
+  memory: 64M
+  path: dist
