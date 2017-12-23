@@ -2,7 +2,7 @@
 <div>
   <form novalidate @submit.stop.prevent="submit">
     <md-input-container>
-      <label>Enter a Url</label>
+      <label>Enter the url of a news article</label>
       <md-input v-model="url"></md-input>
     </md-input-container>
   </form>

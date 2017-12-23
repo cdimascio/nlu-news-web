@@ -5,7 +5,7 @@ import { nluNewsApiRoot } from '../config'
 const extract = _ => _.data
 const newsApi = axios.create({
   baseURL: nluNewsApiRoot,
-  timeout: 3000,
+  timeout: 6000,
 })
 
 export function lookupLocation({ place /* better yet URI? */ }) {

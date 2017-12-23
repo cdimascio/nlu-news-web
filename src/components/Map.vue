@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { colors } from '../config'
 export default {
   name: 'google-map',
   props: {
@@ -92,7 +93,7 @@ export default {
       const map = new google.maps.Map(element, options);
       const opts = [{
         stylers: [
-          { hue: '#CD5C5C' },
+          { hue: colors.secondary.hex },//'#CD5C5C' },
           { gamma: 0.5 },
           { weight: 0.5 }
         ]
@@ -100,7 +101,7 @@ export default {
       {
         featureType: 'water',
         stylers: [
-          { color: '#272b30' }
+          { color: colors.primary.hex },//'#272b30' }
         ]
       }];
 

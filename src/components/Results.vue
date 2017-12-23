@@ -1,16 +1,9 @@
 <template>
   <div class="full-height">
     <query-box v-model="url" v-on:input="updateUrl"></query-box>
-    <md-layout md-gutter v-if="marker">
-      <md-layout md-column md-gutter>
-        <md-layout md-flex="50">
-          <cards :entities="entities"/>
-        </md-layout>
-        <md-layout class="full-height" >
-          <google-map name="example" :entities="markers"></google-map>
-        </md-layout>
-      </md-layout>
-    </md-layout>
+    <div v-if="marker">
+      <cards :entities="entities" :geo-entities="markers"/>
+    </div>
   </div>
 </template>
 
@@ -50,7 +43,7 @@ export default {
   components: { 
     GoogleMap,
     QueryBox,
-    Cards 
+    Cards
   },
 };
 </script>
@@ -60,6 +53,7 @@ export default {
 	height: 100%;
 	display: flex;
 	flex-direction: column;
+  min-height: 400px;
 }
 </style>
 

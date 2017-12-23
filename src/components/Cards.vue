@@ -1,8 +1,12 @@
 <template>
-  <div>
     <md-layout md-gutter>
-      <md-layout md-flex-xsmall="100" md-flex-medium="50" md-flex-large="33" v-for="(entity,index) in cards" :key="entity.db_pedia.uri">
-        <md-card class="card">
+            <md-layout md-flex-xsmall="100" md-flex-medium="100" md-flex-large="100" md-flex-xlarge="100">
+        <md-card class="card full-height">
+          <google-map name="example" :entities="geoEntities"></google-map>            
+        </md-card>
+      </md-layout>
+      <md-layout md-flex-xsmall="100" md-flex-medium="33" md-flex-large="25" v-for="(entity,index) in cards" :key="entity.db_pedia.uri">
+        <md-card :class="index % 2 == 0 ? 'alt-card' : 'card'">
           <md-card-area>
             <md-card-media>
               <div
@@ -27,14 +31,15 @@
         </md-card>
       </md-layout>
     </md-layout>  
-  </div>
 </template>
 
 <script>
+import GoogleMap from './Map'
 export default {
   name: 'Cards',
   props: [
-    'entities'
+    'entities',
+    'geoEntities'
   ],
   computed: {
     cards() {
@@ -57,7 +62,7 @@ export default {
   methods: {
     styleImage(i) {
       return {
-        height: '300px',
+        height: '200px',
         'background-image': `url(${this.cards[i].db_pedia.thumb})`,
         'background-size': 'cover',
         'background-repeat': 'no-repeat',
@@ -65,12 +70,23 @@ export default {
       }
     }
   },
+  mounted() {
+    console.log('ENTITIES', this.entities)
+    console.log('GEO-ENTITIES', this.geoEntities)
+    console.log('CARDS', this.cards)
+  },
+  components: {
+    GoogleMap,
+  }
 }
 </script>
 
 <style scoped>
   .card {
-    background-color: #d35c5b;
+    background-color: #e0e0e0;
+  }
+  .alt-card {
+    background-color: #37474F;
     color: rgb(240, 232, 232);
   }
   .content-container {
@@ -80,4 +96,12 @@ export default {
   .right,.left{width:50%; position:absolute;}
   .right{right:0; text-align: right;}
   .left{left:0;}
+  .full-height {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 500px;
+    min-width: 300px;
+  }
 </style>
