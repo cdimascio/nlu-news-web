@@ -7,7 +7,6 @@
 
       <h2 class="md-title" style="flex: 1">Stories</h2>
 
-      <query-box />
       <md-button class="md-icon-button">
         <md-icon>search</md-icon>
       </md-button>
