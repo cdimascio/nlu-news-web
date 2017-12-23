@@ -5,7 +5,7 @@
           <google-map :entities="geoEntities"></google-map>            
         </md-card>
       </md-layout>
-      <md-layout md-flex-xsmall="100" md-flex-medium="33" md-flex-large="25" v-for="(entity,index) in cards" :key="entity.db_pedia.uri">
+      <md-layout md-flex-xsmall="100" md-flex-small="50" md-flex-medium="25" md-flex-large="25" v-for="(entity,index) in cards" :key="entity.db_pedia.uri">
         <md-card :class="index % 2 == 0 ? 'alt-card' : 'card'">
           <md-card-area>
             <md-card-media>
