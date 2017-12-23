@@ -5,7 +5,7 @@ import 'vue-material/dist/vue-material.css'
 import App from './App'
 import router from './router'
 import store from './store'
-import { colors } from './config' 
+import { colors } from './config'
 
 Vue.use(Vuex)
 Vue.use(VueMaterial)

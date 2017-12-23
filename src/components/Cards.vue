@@ -70,11 +70,6 @@ export default {
       }
     }
   },
-  mounted() {
-    console.log('ENTITIES', this.entities)
-    console.log('GEO-ENTITIES', this.geoEntities)
-    console.log('CARDS', this.cards)
-  },
   components: {
     GoogleMap,
   }
@@ -83,10 +78,10 @@ export default {
 
 <style scoped>
   .card {
-    background-color: #e0e0e0;
+    background-color: #e0e0e0 !important;
   }
   .alt-card {
-    background-color: #37474F;
+    background-color: #37474F !important;
     color: rgb(240, 232, 232);
   }
   .content-container {

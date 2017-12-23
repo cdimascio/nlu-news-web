@@ -7,7 +7,6 @@
 
 <script>
 import Nav from './components/Nav'
-console.log(Nav)
 export default {
   name: 'app',
   components: { Nav }
