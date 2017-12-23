@@ -1,12 +1,7 @@
 <template>
   <div class="container">
-    <md-toolbar>
-      <md-button class="md-icon-button">
-        <!-- <md-icon>menu</md-icon> -->
-      </md-button>
-
-      <h2 class="md-title" style="flex: 1">Stories</h2>
-
+    <md-toolbar class="md-dense">
+      <h2 class="md-title" style="flex: 1">Story Enchrichment (demo)</h2>
       <md-button class="md-icon-button">
         <md-icon>search</md-icon>
       </md-button>
@@ -21,6 +16,9 @@ export default {
 </script>
 
 <style>
+.md-toolbar .md-title {
+  font-size: 16px;
+}
 </style>
 
 

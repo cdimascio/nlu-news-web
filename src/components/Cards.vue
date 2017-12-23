@@ -62,7 +62,7 @@ export default {
   methods: {
     styleImage(i) {
       return {
-        height: '200px',
+        height: '160px',
         'background-image': `url(${this.cards[i].db_pedia.thumb})`,
         'background-size': 'cover',
         'background-repeat': 'no-repeat',
@@ -96,7 +96,26 @@ export default {
     width: 100%;
     display: flex;
     flex-direction: column;
-    min-height: 500px;
-    min-width: 300px;
+    min-height: 400px;
+    min-width: 240px;
+  }
+  .md-card-content {
+    padding: 12px;
+    font-size: 11px;
+    line-height: 17px;
+  }
+  .md-card .md-card-header {
+    padding: 16px 12px;
+  }
+  .md-card .md-subhead {
+      opacity: .54;
+      font-size: 11px;
+      letter-spacing: .01em;
+      line-height: 16px;
+  }
+  .md-card .md-title {
+      font-size: 19px;
+      letter-spacing: 0;
+      line-height: 25px;
   }
 </style>

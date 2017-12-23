@@ -103,7 +103,7 @@ export default {
 }
 
 .message {
-  font-size: 30px;
+  font-size: 24px;
   color: #E91E63;
   text-align: center;
   height: 100px;
@@ -118,7 +118,7 @@ export default {
 }
 
 .message .url {
-  font-size: 18px;
+  font-size: 14px;
 }
 
 .dimmed:after {
