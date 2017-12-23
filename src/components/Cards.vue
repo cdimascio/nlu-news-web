@@ -1,8 +1,8 @@
 <template>
     <md-layout md-gutter>
-            <md-layout md-flex-xsmall="100" md-flex-medium="100" md-flex-large="100" md-flex-xlarge="100">
+        <md-layout md-flex-xsmall="100" md-flex-medium="100" md-flex-large="100" md-flex-xlarge="100">
         <md-card class="card full-height">
-          <google-map name="example" :entities="geoEntities"></google-map>            
+          <google-map :entities="geoEntities"></google-map>            
         </md-card>
       </md-layout>
       <md-layout md-flex-xsmall="100" md-flex-medium="33" md-flex-large="25" v-for="(entity,index) in cards" :key="entity.db_pedia.uri">
