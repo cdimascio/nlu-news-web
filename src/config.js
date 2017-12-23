@@ -14,9 +14,9 @@ export const colors = {
     textColor: 'white',
   },
   accent: {
-    hex: '#FF4081',
+    hex: '#E91E63',
     color: 'pink',
-    hue: '200',
+    hue: '500',
     textColor: 'white',
   },
   secondary: {
