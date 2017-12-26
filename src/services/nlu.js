@@ -1,5 +1,5 @@
 import axios from 'axios'
-import dps from 'dbpedia-sparql-client';
+import dps from 'dbpedia-sparql-client'
 import { nluNewsApiRoot } from '../config'
 
 const extract = _ => _.data

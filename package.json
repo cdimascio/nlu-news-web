@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
-    "dbpedia-sparql-client": "^0.9.6",
+    "dbpedia-sparql-client": "^0.9.8",
     "vue": "^2.5.2",
     "vue-material": "^0.8.1",
     "vue-router": "^3.0.1",
