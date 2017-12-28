@@ -2,9 +2,8 @@
 
 A sample application that uses Watson Natural Language Understanding, DBpedia, and IBM Cloud Functions (OpenWhisk). 
 
-<img src="https://raw.githubusercontent.com/cdimascio/nlu-news-web/master/assets/nlu.svg" data-canonical-src="https://github.com/cdimascio/nlu-news-web/blob/master/assets/nlu.svg" width="200" height="200" />
-<img src="https://raw.githubusercontent.com/cdimascio/nlu-news-web/master/assets/whisk.svg" data-canonical-src="https://github.com/cdimascio/nlu-news-web/blob/master/assets/whisk.svg" width="200" height="200" />
-
+![](https://github.com/cdimascio/nlu-news-web/blob/master/assets/nlu.svg?raw=true&sanitize=true)
+![](https://github.com/cdimascio/nlu-news-web/blob/master/assets/whisk.svg?raw=true&sanitize=true)
 
 The client application is implemented with Vue.js. The UI enables a user to enter a url, preferably one that references a news article. The UI invokes a backend that analyzes the article's contents, identifies a subset of relevant entities, then looks up their details using DBpedia. Finally, the results are rendered as cards. Entities with locations will appear on a Google Map.
 
