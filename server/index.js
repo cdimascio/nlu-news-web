@@ -6,7 +6,7 @@ const natural_language_understanding = new NaturalLanguageUnderstandingV1({
   version_date: '2017-02-27',
 })
 
-function nluAnalyze(params) {
+function main(params) {
   const parameters = {
     url: params.url,
     features: {
@@ -33,5 +33,3 @@ function nluAnalyze(params) {
     })
   })
 }
-
-exports.nlu_analyze = nluAnalyze
