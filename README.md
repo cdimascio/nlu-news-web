@@ -40,7 +40,7 @@ To see the live workkng demo, navigate to [https://nlu-web.mybluemix.net](https:
 	  password: '<YOUR-PASSWORD>',
 	  version_date: '2017-02-27',
 	})
-```
+	```
 
 4. Deploy the OpenWhisk action (IBM Cloud Function)
 
