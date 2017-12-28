@@ -2,9 +2,7 @@
 
 A sample application that uses Watson Natural Language Understanding, DBpedia, and IBM Cloud Functions (OpenWhisk). 
 
-![Watson NLU](./assets/nlu.svg)
 <img src="./assets/nlu.svg" width="200" height="200">
-![IBM Cloud Functions](./assets/whisk.svg)
 <img src="./assets/whisk.svg" width="200" height="200">
 
 
