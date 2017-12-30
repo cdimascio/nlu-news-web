@@ -13,10 +13,7 @@ export default {
 }
 </script>
 
-<style>
-.md-toolbar .md-title {
-  font-size: 16px;
-}
+<style scoped>
 </style>
 
 

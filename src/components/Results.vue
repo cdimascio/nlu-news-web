@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex'
 import QueryBox from './QueryBox'
 import Cards from './Cards'
 
@@ -35,16 +35,14 @@ export default {
       inProgress: false,
       entities: [],
       url: '',
-    };
+    }
   },
   computed: {
     ...mapGetters({
-      analysis: 'analysis'
+      analysis: 'analysis',
     }),
     message() {
-      return this.analysis 
-        ? 'looking up entities...' 
-        : 'analyzing url...'
+      return this.analysis ? 'looking up entities...' : 'analyzing url...'
     },
     markers() {
       const hasGeo = e => e.db_pedia.lat && e.db_pedia.long
@@ -54,36 +52,38 @@ export default {
       const hasThumb = e => e.db_pedia.thumb
       const m = this.entities.filter(hasThumb)
       return m.length > 0 ? m[0] : null
-    }
+    },
   },
   methods: {
     ...mapActions(['analyzeAndLookup']),
     analyze() {
       this.inProgress = true
       this.error = null
-      this.analyzeAndLookup(this.url).then(r => {
-        this.inProgress = false
-        this.entities = r;
-        this.init = true;
-      }).catch(e => {
-        this.error = 'Oops! analysis failed, please try again. :-('
-        this.inProgress = false
-        throw e
-      });
+      this.analyzeAndLookup(this.url)
+        .then(r => {
+          this.inProgress = false
+          this.entities = r
+          this.init = true
+        })
+        .catch(e => {
+          this.error = 'Oops! analysis failed, please try again. :-('
+          this.inProgress = false
+          throw e
+        })
     },
   },
-  components: { 
+  components: {
     QueryBox,
-    Cards
+    Cards,
   },
-};
+}
 </script>
 
 <style scoped>
 .full-height {
-	height: 100%;
-	display: flex;
-	flex-direction: column;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   min-height: 400px;
 }
 .loader {
@@ -104,17 +104,13 @@ export default {
 
 .message {
   font-size: 24px;
-  color: #E91E63;
+  color: #e91e63;
   text-align: center;
   height: 100px;
   border-radius: 15px;
-  background: rgba(0,0,0,.9);
+  background: rgba(0, 0, 0, 0.9);
   z-index: 11;
   line-height: 8px;
-}
-
-.message .text {
-
 }
 
 .message .url {
@@ -122,7 +118,7 @@ export default {
 }
 
 .dimmed:after {
-  content: " ";
+  content: ' ';
   z-index: 10;
   display: block;
   position: absolute;

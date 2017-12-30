@@ -37,10 +37,7 @@
 import GoogleMap from './Map'
 export default {
   name: 'Cards',
-  props: [
-    'entities',
-    'geoEntities'
-  ],
+  props: ['entities', 'geoEntities'],
   computed: {
     cards() {
       const hasDescription = e => e.db_pedia.description
@@ -49,15 +46,14 @@ export default {
     topEmotion() {
       const byScore = (a, b) => a.value < b.value
       return this.entities.reduce((o, e) => {
-        const { emotion, text } = e.entity;
-        const a = Object
-          .keys(emotion)
+        const { emotion, text } = e.entity
+        const a = Object.keys(emotion)
           .map(k => ({ value: emotion[k], emotion: k }))
           .sort(byScore)
         o[text] = a
         return o
       }, {})
-    }
+    },
   },
   methods: {
     styleImage(i) {
@@ -68,54 +64,46 @@ export default {
         'background-repeat': 'no-repeat',
         'background-position-x': 'center',
       }
-    }
+    },
   },
   components: {
     GoogleMap,
-  }
+  },
 }
 </script>
 
 <style scoped>
-  .card {
-    background-color: #e0e0e0 !important;
-  }
-  .alt-card {
-    background-color: #37474F !important;
-    color: rgb(240, 232, 232);
-  }
-  .content-container {
-    max-height: 300px;
-  }
-  .sub-head-wrapper{position:relative;}
-  .right,.left{width:50%; position:absolute;}
-  .right{right:0; text-align: right;}
-  .left{left:0;}
-  .full-height {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    min-height: 400px;
-    min-width: 240px;
-  }
-  .md-card-content {
-    padding: 12px;
-    font-size: 11px;
-    line-height: 17px;
-  }
-  .md-card .md-card-header {
-    padding: 16px 12px;
-  }
-  .md-card .md-subhead {
-      opacity: .54;
-      font-size: 11px;
-      letter-spacing: .01em;
-      line-height: 16px;
-  }
-  .md-card .md-title {
-      font-size: 19px;
-      letter-spacing: 0;
-      line-height: 25px;
-  }
+.card {
+  background-color: #e0e0e0 !important;
+}
+.alt-card {
+  background-color: #37474f !important;
+  color: rgb(240, 232, 232);
+}
+.content-container {
+  max-height: 300px;
+}
+.sub-head-wrapper {
+  position: relative;
+}
+.right,
+.left {
+  width: 50%;
+  position: absolute;
+}
+.right {
+  right: 0;
+  text-align: right;
+}
+.left {
+  left: 0;
+}
+.full-height {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 400px;
+  min-width: 240px;
+}
 </style>

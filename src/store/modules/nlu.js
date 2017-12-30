@@ -43,7 +43,9 @@ const actions = {
             if (!o) return {}
             return Object.keys(o).reduce((r, k) => {
               const key = k === 's' ? 'uri' : k
-              const value = /(lat|long)/.test(k) ? Number.parseFloat(o[k].value) : o[k].value
+              const value = /(lat|long)/.test(k)
+                ? Number.parseFloat(o[k].value)
+                : o[k].value
               return { ...r, [key]: value }
             }, {})
           }

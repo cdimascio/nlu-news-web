@@ -30,9 +30,9 @@ export function lookupLocation({ place /* better yet URI? */ }) {
   }
   `
   return dps
-  .client()
-  .query(query)
-  .asJson()
+    .client()
+    .query(query)
+    .asJson()
 }
 
 export function analyze(url) {

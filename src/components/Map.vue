@@ -13,24 +13,24 @@ export default {
       default: 'map-view',
     },
     entities: {
-      default: []
-    }
+      default: [],
+    },
   },
-	data() {
-		return {
+  data() {
+    return {
       map: null,
       allMarkers: [],
-			center: {
-				lat: 48.853,
-				lng: 2.298,
-			},
-			zoom: 5,
-    };
+      center: {
+        lat: 48.853,
+        lng: 2.298,
+      },
+      zoom: 5,
+    }
   },
   watch: {
     entities(values, old) {
       this.updateMarkers()
-    }
+    },
   },
   methods: {
     updateMarkers() {
@@ -44,7 +44,7 @@ export default {
         const { lat, long: lng } = e.db_pedia
         this.addMarker({
           position: { lat, lng },
-          title: e.entity.text
+          title: e.entity.text,
         })
       })
     },
@@ -55,11 +55,12 @@ export default {
           position,
           title,
           animation: google.maps.Animation.DROP,
-          icon: { 
+          icon: {
             url: `https://chart.googleapis.com/chart?chst=d_bubble_icon_text_small_withshadow&chld=glyphish_map-marker|bb|${title}|FFFFFF|000000`,
           },
-          map: this.map
-        }))
+          map: this.map,
+        })
+      )
     },
 
     clearMarkers() {
@@ -70,19 +71,22 @@ export default {
     setMapOnAll(map) {
       this.allMarkers.forEach(m => m.setMap(map))
     },
-    
+
     fitToBounds() {
       const map = this.map
       const geos = this.entities.map(e => ({
         lat: e.db_pedia.lat,
         lng: e.db_pedia.long,
-      }));
+      }))
       const centerOnGeos = geos => {
-        if (geos.length === 1) map.setCenter((geos[0]))
+        if (geos.length === 1) map.setCenter(geos[0])
         else if (geos.length > 1) {
-          const bounds = geos.reduce((b, geo) => b.extend(geo), new google.maps.LatLngBounds());
-          map.fitBounds(bounds);
-          map.panToBounds(bounds);
+          const bounds = geos.reduce(
+            (b, geo) => b.extend(geo),
+            new google.maps.LatLngBounds()
+          )
+          map.fitBounds(bounds)
+          map.panToBounds(bounds)
         }
       }
       centerOnGeos(geos)
@@ -90,47 +94,45 @@ export default {
 
     createMap(options) {
       const element = document.getElementById(this.mapId)
-      const map = new google.maps.Map(element, options);
-      const opts = [{
-        stylers: [
-          { hue: colors.secondary.hex },//'#CD5C5C' },
-          { gamma: 0.5 },
-          { weight: 0.5 }
-        ]
-      },
-      {
-        featureType: 'water',
-        stylers: [
-          { color: colors.primary.hex },//'#272b30' }
-        ]
-      }];
+      const map = new google.maps.Map(element, options)
+      const opts = [
+        {
+          stylers: [
+            { hue: colors.secondary.hex }, //'#CD5C5C' },
+            { gamma: 0.5 },
+            { weight: 0.5 },
+          ],
+        },
+        {
+          featureType: 'water',
+          stylers: [
+            { color: colors.primary.hex }, //'#272b30' }
+          ],
+        },
+      ]
 
-      map.mapTypes.set('custom_style', new google.maps.StyledMapType(opts, {
-        name: 'Custom Style'
-      }));
+      map.mapTypes.set(
+        'custom_style',
+        new google.maps.StyledMapType(opts, {
+          name: 'Custom Style',
+        })
+      )
 
-      map.setMapTypeId('custom_style');
+      map.setMapTypeId('custom_style')
 
       this.map = map
     },
-    onIdle() {
-      
-    },
-    onClick() {
-
-    },
+    onIdle() {},
+    onClick() {},
   },
-  mounted: function () {
+  mounted: function() {
     const options = {
       center: this.center,
       zoom: this.zoom,
       mapTypeControlOptions: {
-        mapTypeIds: [
-          google.maps.MapTypeId.ROADMAP, 
-          'custom_style'
-        ]
+        mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'custom_style'],
       },
-    } 
+    }
 
     this.createMap(options)
     this.updateMarkers()
@@ -140,12 +142,12 @@ export default {
 
 <style scoped>
 .map {
-	flex: 100% 1 1;
+  flex: 100% 1 1;
 }
 .demo {
-	height: 100%;
-	display: flex;
-	flex-direction: column;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 .google-map {
   flex: 100% 1 1;
