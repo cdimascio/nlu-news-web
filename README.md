@@ -12,7 +12,7 @@ The client application is implemented with Vue.js. The UI enables a user to ente
 The backend is implemented using IBM Cloud Functions.
 
 <p align="center">
-![](https://github.com/cdimascio/nlu-news-web/blob/master/assets/example.png?raw=true)
+<img src="./assets//example.png" width="500"/>
 </p>
 
 ## Try it out
