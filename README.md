@@ -1,7 +1,7 @@
 # nlu-web
 
 A sample application that uses Watson Natural Language Understanding, DBpedia, and IBM Cloud Functions (OpenWhisk). 
-<div style="text-align:center">
+<div align="center" style="text-align: center;">
 <img src="./assets/nlu.svg" width="120" height="120"/>
 <img src="./assets/whisk.svg" width="120" height="120"/>
 </div>
@@ -9,6 +9,10 @@ A sample application that uses Watson Natural Language Understanding, DBpedia, a
 The client application is implemented with Vue.js. The UI enables a user to enter a url, preferably one that references a news article. The UI invokes a backend that analyzes the article's contents, identifies a subset of relevant entities, then looks up their details using DBpedia. Finally, the results are rendered as cards. Entities with locations will appear on a Google Map.
 
 The backend is implemented using IBM Cloud Functions.
+
+<p align="center">
+![](https://github.com/cdimascio/nlu-news-web/blob/master/assets/example.png?raw=true)
+</p>
 
 ## Try it out
 To see the live workkng demo, navigate to [https://nlu-web.mybluemix.net](https://nlu-web.mybluemix.net)
